@@ -11,7 +11,7 @@ func GenerateModel(model parser.Model) {
 
 	const structName = "" +
 		"{{ define \"structName\" }}" +
-		"{{ .Table }}" +
+		"{{ .Table | capitalize }}" +
 		"{{ end -}}"
 
 	const attributes = "" +
@@ -27,7 +27,9 @@ func GenerateModel(model parser.Model) {
 		"{{ template \"attributes\" . }}" +
 		"}"
 
-	t := template.New("model")
+	funcs := GetFuncs()
+
+	t := template.New("model").Funcs(funcs)
 	t.Parse(modelTemplate)
 	t.Parse(structName)
 	t.Parse(attributes)
