@@ -2,17 +2,13 @@ models:
   - table: employee
     attributes:
       - column: id 
-        type: int64
+        type: int
         pk: true
         auto: true
       - column: name 
         type: string
       - column: surname 
         type: string
-          # - column: joined 
-          #   type: Date
-          # - column: resigned 
-          #   type: Date
       - column: active 
         type: bool
 
