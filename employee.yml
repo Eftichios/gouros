@@ -3,8 +3,7 @@ models:
     attributes:
       - column: id 
         type: int
-        pk: true
-        auto: true
+        serial: true
       - column: name 
         type: string
       - column: surname 
@@ -20,24 +19,22 @@ entity:
     - endpoint: /
       method: GET
       description: Get all employees
-      return: Employee
+      return: ([]*model.Employee, error)
     - endpoint: /$id
       method: GET
       description: Get employee by ID
-      return: Employee
+      return: (*model.Employee, error)
     - endpoint: /
       method: POST
       description: Create new employee
-      body: {}
-      return: Boolean
+      return: error
     - endpoint: /$id
       method: PUT
       description: Edit an existing employee
-      body: {}
-      return: Boolean
+      return: error
     - endpoint: /$id
       method: DELETE
       description: Delete employee with given ID
-      return: Boolean
+      return: error
 
 

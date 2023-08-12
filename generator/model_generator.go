@@ -7,23 +7,18 @@ import (
 	"toncode/gouros/parser"
 )
 
-func GenerateModel(model parser.Model) {
-
-	const structName = "" +
-		"{{ define \"structName\" }}" +
-		"{{ .Table | capitalize }}" +
-		"{{ end -}}"
+func GenerateModel(templateResource *parser.TemplateResource) {
 
 	const attributes = "" +
 		"{{ define \"attributes\" }}" +
-		"{{ range .Attributes }}" +
+		"{{ range .Model.Attributes }}" +
 		"\t{{ .Column }} {{ .Type }}\n" +
 		"{{ end }}" +
 		"{{ end }}"
 
 	const modelTemplate = "" +
 		"package model\n\n" +
-		"type {{ template \"structName\" . }} struct {\n" +
+		"type {{ template \"structName\" .Model.Table }} struct {\n" +
 		"{{ template \"attributes\" . }}" +
 		"}"
 
@@ -31,12 +26,12 @@ func GenerateModel(model parser.Model) {
 
 	t := template.New("model").Funcs(funcs)
 	t.Parse(modelTemplate)
-	t.Parse(structName)
+	t.Parse(StructName)
 	t.Parse(attributes)
 
-	f, err := os.Create(fmt.Sprintf("model/%s.go", model.Table))
+	f, err := os.Create(fmt.Sprintf("model/%s.go", templateResource.Model.Table))
 
-	err = t.Execute(f, model)
+	err = t.Execute(f, templateResource)
 	if err != nil {
 		panic(err)
 	}

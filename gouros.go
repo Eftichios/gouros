@@ -7,18 +7,28 @@ import (
 	"toncode/gouros/parser"
 )
 
+
 func main() {
 
 	flag.Parse()
 
 	filename := flag.Arg(0)
 
-    apiResource := parser.ParseYML(filename)
+	apiResource := parser.ParseYML(filename)
+	module := parser.ParseGoMod()
 
-    fmt.Println(apiResource.Entity.Resource)
+	fmt.Println(apiResource.Entity.Resource)
 
-    for _, model := range apiResource.Models {
-        generator.GenerateModel(model)
-    }
+	for _, model := range apiResource.Models {
+
+		templateResource := &parser.TemplateResource{
+			Model:  model,
+			Entity: apiResource.Entity,
+			Module: module,
+		}
+
+		generator.GenerateModel(templateResource)
+        generator.GenerateRepository(templateResource)
+	}
 
 }

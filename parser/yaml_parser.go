@@ -24,8 +24,7 @@ type Entity struct {
 type Attribute struct {
 	Column string `yaml:"column"`
 	Type   string `yaml:"type"` // ??
-	PK     bool   `yaml:"pk"`
-	Auto   bool   `yaml:"auto"`
+	Serial bool   `yaml:"serial"`
 }
 
 type Model struct {
