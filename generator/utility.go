@@ -20,8 +20,8 @@ func fnNameTransformer(route string, method string) string {
 			return "Delete"
 
 		}
-	} else if strings.Contains(route, "/$") {
-		params := strings.Split(route, "/$")
+	} else if strings.Contains(route, "/:") {
+		params := strings.Split(route, "/:")
 
 		// remove empty string from index 0
 		params = params[1:]
@@ -78,5 +78,11 @@ func GetFuncs() template.FuncMap {
 		"fnName": func(r string, m string) string {
 			return fnNameTransformer(r, m)
 		},
+        "createRoute": func(base string, resource string) string {
+            if resource != "/" {
+                return base + resource
+            }
+            return base
+        },
 	}
 }

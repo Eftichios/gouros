@@ -20,7 +20,7 @@ entity:
       method: GET
       description: Get all employees
       return: ([]*model.Employee, error)
-    - endpoint: /$id
+    - endpoint: /:id
       method: GET
       description: Get employee by ID
       return: (*model.Employee, error)
@@ -28,11 +28,11 @@ entity:
       method: POST
       description: Create new employee
       return: error
-    - endpoint: /$id
+    - endpoint: /:id
       method: PUT
       description: Edit an existing employee
       return: error
-    - endpoint: /$id
+    - endpoint: /:id
       method: DELETE
       description: Delete employee with given ID
       return: error
