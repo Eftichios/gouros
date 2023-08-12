@@ -29,6 +29,7 @@ func main() {
 
 		generator.GenerateModel(templateResource)
         generator.GenerateRepository(templateResource)
+        generator.GenerateService(templateResource)
 	}
 
 }
