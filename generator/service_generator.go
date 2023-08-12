@@ -54,13 +54,13 @@ func GenerateService(templateResource *parser.TemplateResource) {
 		"{{ end }}"
 
 	const serviceTemplate = "" +
-		"package repository\n\n" +
+		"package service\n\n" +
 		"{{ template \"imports\" . }}\n" +
 		"{{ template \"structDefinition\" . }}\n" +
 		"{{ template \"methods\" . }}"
 
 	funcs := GetFuncs()
-	t := template.New("repository").Funcs(funcs)
+	t := template.New("service").Funcs(funcs)
 	t.Parse(serviceTemplate)
 	t.Parse(imports)
 	t.Parse(structDefinition)
