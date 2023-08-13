@@ -31,6 +31,7 @@ func main() {
         generator.GenerateRepository(templateResource)
         generator.GenerateService(templateResource)
         generator.GenerateController(templateResource)
+        generator.GenerateRouter(templateResource)
 	}
 
 }

@@ -78,9 +78,9 @@ func GetFuncs() template.FuncMap {
 		"fnName": func(r string, m string) string {
 			return fnNameTransformer(r, m)
 		},
-        "createRoute": func(base string, resource string) string {
-            if resource != "/" {
-                return base + resource
+        "createRoute": func(base string, endpoint string) string {
+            if endpoint != "/" {
+                return base + endpoint
             }
             return base
         },
