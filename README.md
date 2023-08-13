@@ -7,7 +7,7 @@ It will generate:
 * Repository: For handling database operations 
 * Service: For handling the logic of the request
 * Controller: For binding data and params to objects and variables, delegating the request to the service and returning the response (data and HTTP status)
-* Route: For registering all the functions in the controller to appropriate endpoints
+* Router: For registering all the functions in the controller to appropriate endpoints
 
 Possible extensions:
 * DB Schema: Generate the schema for creating the db table (for a specific database, i.e Postgres)
