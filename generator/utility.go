@@ -1,8 +1,10 @@
 package generator
 
 import (
+	"fmt"
 	"strings"
 	"text/template"
+	"toncode/gouros/parser"
 )
 
 func fnNameTransformer(route string, method string) string {
@@ -56,8 +58,37 @@ func fnNameTransformer(route string, method string) string {
 
 }
 
-func paramTransformer() {
-	return
+func paramTransformer(model *parser.Model, route *parser.Route) string {
+	// create map for param names to types
+	attrMap := make(map[string]string)
+
+	for _, attr := range model.Attributes {
+		attrMap[attr.Column] = attr.Type // anything else to do here?
+	}
+
+	// extract url params
+	params := strings.Split(route.Endpoint, "/:")
+
+	// remove empty string from index 0
+	params = params[1:]
+
+	result := ""
+	for i, param := range params {
+		result += fmt.Sprintf("%s %s", param, attrMap[param])
+		if i != len(params)-1 {
+			result += ", "
+		}
+
+	}
+
+	if route.Method == "PUT" || route.Method == "POST" {
+        if result != "" {
+            result += ", "
+        }
+		result += fmt.Sprintf("%s *model.%s", model.Table, strings.Title(model.Table))
+	}
+
+	return result
 }
 
 func GetFuncs() template.FuncMap {
@@ -78,11 +109,14 @@ func GetFuncs() template.FuncMap {
 		"fnName": func(r string, m string) string {
 			return fnNameTransformer(r, m)
 		},
-        "createRoute": func(base string, endpoint string) string {
-            if endpoint != "/" {
-                return base + endpoint
-            }
-            return base
-        },
+		"createRoute": func(base string, endpoint string) string {
+			if endpoint != "/" {
+				return base + endpoint
+			}
+			return base
+		},
+		"params": func(m *parser.Model, r *parser.Route) string {
+			return paramTransformer(m, r)
+		},
 	}
 }

@@ -31,7 +31,7 @@ func GenerateRepository(templateResource *parser.TemplateResource) {
 		"{{ define \"methods\" }}" +
 		"{{ range .Entity.Routes }}" +
 		"func ({{ template \"repoAbbr\" $.Entity.Resource }} *{{ template \"repoName\" $.Model.Table }}) " +
-		"{{ fnName .Endpoint .Method }}() " +
+		"{{ fnName .Endpoint .Method }}({{ params $.Model . }}) " +
 		"{{ .Return }} {}\n" +
 		"{{ end }}" +
 		"{{ end }}"

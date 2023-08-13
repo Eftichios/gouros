@@ -41,7 +41,7 @@ func GenerateService(templateResource *parser.TemplateResource) {
 		"{{ define \"methods\" }}" +
 		"{{ range .Entity.Routes }}" +
 		"func ({{ template \"serviceAbbr\" $.Entity.Resource }} *{{ template \"serviceName\" $.Model.Table }}) " +
-		"{{ fnName .Endpoint .Method }}() " +
+		"{{ fnName .Endpoint .Method }}({{ params $.Model . }}) " +
 		"{{ .Return }} {}\n" +
 		"{{ end }}" +
 		"{{ end }}"
