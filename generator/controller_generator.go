@@ -50,7 +50,7 @@ func GenerateController(templateResource *parser.TemplateResource) {
 	const structDefinition = "" +
 		"{{ define \"structDefinition\"}}" +
 		"type {{template \"controllerName\" .Entity.Resource}} struct {\n" +
-		"\t{{ template \"serviceAbbr\" .Entity.Resource }} *repository.{{ template \"serviceName\" .Entity.Resource}}\n" +
+		"\t{{ template \"serviceAbbr\" .Entity.Resource }} *service.{{ template \"serviceName\" .Entity.Resource}}\n" +
 		"}\n" +
 		"{{ end }}"
 
